@@ -2,8 +2,9 @@
 title: "Week2"
 output: pdf_document
 ---
-Introduction to Random Variable Assessemnt
-============================================
+#Probability Distribution 1
+##Random Variable Assessemnt 1
+
 Let's start by loading in the data that Rafa used in the video. Remember to click on "Raw" to download individual files from github.
 
 ```{r s,cache=TRUE}
@@ -110,7 +111,7 @@ The proportion of high fat diet mice over 30 is the sum of high fat diet mice ov
 mean(highfat > 30)
 ```
 
-##Random Variable Assessemnt II
+##Random Variable Assessemnt 2
 ```{r cache=TRUE}
 population = read.csv("femaleControlsPopulation.csv")
 ```
@@ -127,6 +128,8 @@ What's the control population mean?
 ```{r cache=TRUE}
 mean(population)
 ```
+
+###RANDOM SAMPLES
 The idea of a random variable, is that we pick at random some samples from the population and then calculate the mean. So depending on which samples we pick, the mean changes, and therefore we say that the mean of a sample of the population is a random variable. In R, we can make a random sample using the sample() function:
 
 ```{r cache=TRUE}
@@ -170,7 +173,7 @@ head(null)
 plot(null)
 ```
 
-#Introduction to Null Distribution Assessment
+##Introduction to Null Distribution Assessment
 
 In the previous assessments, we created a vector of differences between means of random samples from the control population. This gives us a sense of the null distribution of differences if there is no true effect of a high fat diet. Let's recreate that vector:
 
@@ -223,6 +226,8 @@ What is the two-tailed probability of seeing as big a difference as we observed,
 ```{r cache=TRUE}
 mean(abs(null)>abs(diff))
 ```
+
+#Probability Distribution 2
 
 ##Probability Distribution Assessment
 
@@ -316,6 +321,7 @@ This last style is called using an "inline" function or an "anonymous" function.
 ```{r cache=TRUE}
 plot(ecdf(x))
 ```
+
 ##The Normal Distribution Assessment
 Previously, we introduced the concept of summarizing data using empirical distributions. In this tutorial, we introduce one of the most commonly occuring and most commonly used distributions: the normal distribution. The normal distribution (also known as the Gaussian distribution or the bell curve) is a distribution that is characterized by two parameters: mu (the mean) and sigma (the standard deviation).
 
@@ -395,7 +401,36 @@ Finally, using the Normal approximation, estimate the number of countries that s
 ```{r cache=TRUE}
 (F(7)-F(6))*n
 ```
-###QUESTION 2.4  (1 point possible)
+
+###CONVENIENCE OF Z-SCORES
+
+Finally, we note that, using z-scores can save us some typing, as the default distribution for pnorm() is a normal distribution with mean 0 and standard deviation 1.
+
+Suppose we want to know the proportion of our normal approximation which is less than each value in 'x'.
+
+This means, to use the pnorm() function on 'x', with the mean set to mean(x) and the standard deviation set to sd(x):
+
+```{r cache=TRUE}
+head(pnorm(x, mean=mean(x), sd=sd(x)))
+```
+
+
+An equivalent way to answer this question is to use the z-scores we already built from 'x' and supply these to pnorm(). This works, because the mean of 'z' is 0 and the standard deviation is 1. Check this for yourself:
+
+```{rcache=TRUE}
+mean(z)
+sd(z)
+```
+
+
+So we can use the z-score vector directly, and just use the default values of 'mean' and 'sd' for pnorm():
+
+```{r cache=TRUE}
+head(pnorm(z))
+```
+
+
+###QUESTION 2.4  
 In the previous video and in problem 2.2 above, we used a QQ plot, as a diagnostic to see if a sample was approximately normally distributed. Here, we will recreate such a plot from scratch. The plot we want to create is:
 
 ```{r cache=TRUE}
